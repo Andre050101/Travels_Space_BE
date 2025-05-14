@@ -1,5 +1,5 @@
 package org.lessons.java.travels_space.service;
 
-public class TravelsAttractionService {
+public class TouristAttractionService {
 
 }

@@ -26,7 +26,7 @@
         <section class="row">
             <div class="col-12">
                 <h2>Attractions: </h2>
-            <!-- <table class="table"> <!--th:if="${attractions.size() > 0}"
+            <table class="table" th:if="${city.touristAttractions.size() > 0}"> 
                     <thead>
                         <tr>
                             <th>ID:</th>
@@ -44,33 +44,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr > <!--th:each="attraction : ${attractions}" th:object="${attraction}"
-                            <td>[[*{id}]]</td>
-                            <td>[[*{name}]]</td>
-                            <td>[[*{description}]]</td>
-                            <td>[[*{address}]]</td>
-                            <td>[[*{openingHours}]]</td>
-                            <td>[[*{ticketPrice}]]</td>
-                            <td>[[*{website}]]</td>
-                            <td>[[*{createdAt}]]</td>
-                            <td>[[*{updatedAt}]]</td>
+                        <tr th:each="attraction : ${city.touristAttractions}">
+                            <td th:text="${attraction.id}"></td>
+                            <td th:text="${attraction.name}"></td>
+                            <td th:text="${attraction.description}"></td>
+                            <td th:text="${attraction.address}"></td>
+                            <td th:text="${attraction.openingHours}"></td>
+                            <td th:text="${attraction.ticketPrice}"></td>
                             <td>
-                                <a href="/"> <!--th:href="@{/cities/{id}(id=*{id})}"
+                                <a th:href="${attraction.website}" th:text="${attraction.website}" target="_blank"></a>
+                            </td>
+                            <td th:text="${#temporals.format(attraction.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(attraction.updatedAt, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td>
+                                <a th:href="@{/cities/{id}(id=*{id})}">
                                     <button class="btn btn-info">
                                         <strong>Details</strong>
                                     </button>
                                 </a>
                             </td>
                             <td>
-                                <a href="/"> <!--th:href="@{/cities/edit/{id}(id=*{id})}"
+                                <a th:href="@{/cities/edit/{id}(id=*{id})}"> 
                                     <button class="btn btn-primary">
                                         <strong>Edit</strong>
                                     </button>
                                 </a>
                             </td>
                             <td>
-                               Form-->
-                                <!-- <form action="#"  method="post"> <!--th:action="@{/cities/delete/{id}(id=*{id})}"
+                               <form action="#" th:action="@{/cities/delete/{id}(id=*{id})}" method="post">
                                     <button type="submit" class="btn btn-danger">
                                         <strong>Delete</strong>
                                     </button>
@@ -80,7 +81,7 @@
 
                     </tbody>
                 </table>
-                <p th:text="'No attractions available at the moment...'" th:unless="${attractions.size() > 0}"></p>-->
+                <p th:text="'No attractions available at the moment...'" th:unless="${city.touristAttractions.size() > 0}"></p>
             
                 
             </div>
