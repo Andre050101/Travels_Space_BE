@@ -61,7 +61,7 @@
                                 </a>
                             </td>
                             <td>
-                               <form action="#" th:action="@{/cities/delete/{id}(id=*{id})}" method="post">
+                               <form action="#" th:action="@{/touristAttractions/delete/{id}(id=${attraction.id})}" method="post">
                                     <button type="submit" class="btn btn-danger">
                                         <strong>Delete</strong>
                                     </button>
