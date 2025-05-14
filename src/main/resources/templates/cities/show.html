@@ -31,13 +31,8 @@
                         <tr>
                             <th>ID:</th>
                             <th>Name:</th>
-                            <th>Description:</th>
-                            <th>Address:</th>
-                            <th>Opening Hours:</th>
                             <th>Ticket Price:</th>
                             <th>Website:</th>
-                            <th>Created at:</th>
-                            <th>Updated at:</th>
                             <th>See more:</th>
                             <th>Edit:</th>
                             <th>Delete:</th>
@@ -47,24 +42,19 @@
                         <tr th:each="attraction : ${city.touristAttractions}">
                             <td th:text="${attraction.id}"></td>
                             <td th:text="${attraction.name}"></td>
-                            <td th:text="${attraction.description}"></td>
-                            <td th:text="${attraction.address}"></td>
-                            <td th:text="${attraction.openingHours}"></td>
                             <td th:text="${attraction.ticketPrice}"></td>
                             <td>
                                 <a th:href="${attraction.website}" th:text="${attraction.website}" target="_blank"></a>
                             </td>
-                            <td th:text="${#temporals.format(attraction.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
-                            <td th:text="${#temporals.format(attraction.updatedAt, 'dd/MM/yyyy HH:mm')}"></td>
                             <td>
-                                <a th:href="@{/cities/{id}(id=*{id})}">
+                                <a th:href="@{/touristAttractions/{id}(id=*{id})}">
                                     <button class="btn btn-info">
                                         <strong>Details</strong>
                                     </button>
                                 </a>
                             </td>
                             <td>
-                                <a th:href="@{/cities/edit/{id}(id=*{id})}"> 
+                                <a th:href="@{/cities/edit/{id}(id=*{city.getId()})}"> 
                                     <button class="btn btn-primary">
                                         <strong>Edit</strong>
                                     </button>

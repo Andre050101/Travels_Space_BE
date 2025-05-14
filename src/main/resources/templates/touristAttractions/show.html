@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Show</title>
+</head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('touristAttractions')}"></nav>
+    <main class="container">
+        <h1 th:text="${touristAttraction.getName()}"></h1>
+        <section class="row">
+            <div class="col-12">
+                <h2>Info:</h2>
+                <ul class="list-unstyled" th:object="${touristAttraction}">
+                    <li>Id: [[*{id}]]</li>
+                    <li>Name: [[*{name}]]</li>
+                    <li>Address: [[*{address}]]</li>
+                    <li>Ticket price: [[*{ticketPrice}]]</li>
+                    <li>Opening hours: [[*{openingHours}]]</li>
+                    <li>Website: [[*{website}]]</li>
+                    <li>Description: [[*{description}]]</li>
+                    <li>Created at: [[*{createdAt}]]</li>
+                    <li>Updated at: [[*{updatedAt}]]</li>
+                    <li>
+                        <a th:href="@{../../cities/{id}(id=*{id})}">
+                            <button class="btn btn-info">Back to the city</button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+</html>
