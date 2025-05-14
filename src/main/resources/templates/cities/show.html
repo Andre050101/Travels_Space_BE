@@ -54,7 +54,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a th:href="@{/cities/edit/{id}(id=*{city.getId()})}"> 
+                                <a th:href="@{/touristAttractions/edit/{id}(id=${attraction.id})}"> 
                                     <button class="btn btn-primary">
                                         <strong>Edit</strong>
                                     </button>
@@ -77,9 +77,15 @@
             </div>
         </section>
 
-        <a th:href="@{../cities}">
-            <button class="btn btn-info">Back to the cities</button>
-        </a>
+        <div class="d-flex justify-content-between">
+            <a th:href="@{../touristAttractions/create/{id}(id=*{id})}">
+                <button class="btn btn-warning">Add new Attraction</button>
+            </a>
+            <a th:href="@{../cities}">
+                <button class="btn btn-info">Back to the cities</button>
+            </a>
+        </div>
+        
     </main>
     <div th:replace="~{fragments/resources :: scripts}"></div>
 </body>

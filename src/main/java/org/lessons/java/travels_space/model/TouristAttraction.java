@@ -51,7 +51,7 @@ public class TouristAttraction {
 
     // Relazione manyTo1 con city
     @ManyToOne
-    @JoinColumn(name = "cityId", nullable = false)
+    @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
     // Getter e setter
