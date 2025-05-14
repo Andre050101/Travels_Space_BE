@@ -47,7 +47,7 @@
                                 <a th:href="${attraction.website}" th:text="${attraction.website}" target="_blank"></a>
                             </td>
                             <td>
-                                <a th:href="@{/touristAttractions/{id}(id=*{id})}">
+                                <a th:href="@{/touristAttractions/{id}(id=${attraction.id})}">
                                     <button class="btn btn-info">
                                         <strong>Details</strong>
                                     </button>

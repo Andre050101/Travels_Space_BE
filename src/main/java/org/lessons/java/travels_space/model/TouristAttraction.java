@@ -36,7 +36,7 @@ public class TouristAttraction {
     @NotBlank
     private String openingHours;
 
-    @NotNull
+    @Column(name = "ticket_price", nullable = false)
     private BigDecimal ticketPrice;
 
     private String website;
