@@ -42,7 +42,7 @@
                         <tr th:each="attraction : ${city.touristAttractions}">
                             <td th:text="${attraction.id}"></td>
                             <td th:text="${attraction.name}"></td>
-                            <td th:text="${attraction.ticketPrice}"></td>
+                            <td th:text="${attraction.ticketPrice+ ' €'}"></td>
                             <td>
                                 <a th:href="${attraction.website}" th:text="${attraction.website}" target="_blank"></a>
                             </td>

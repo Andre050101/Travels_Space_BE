@@ -1,11 +1,13 @@
 package org.lessons.java.travels_space.controller;
 
+import org.lessons.java.travels_space.model.TouristAttraction;
 import org.lessons.java.travels_space.service.TouristAttractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -26,5 +28,12 @@ public class TouristAttractionController {
     // Edit e update
 
     // Delete
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id) {
+        TouristAttraction attrToDelete = attrService.getById(id);
+        Integer CityId = attrToDelete.getCity().getId();
+        attrService.delete(attrToDelete);
+        return "redirect:/cities/" + CityId;
 
+    }
 }

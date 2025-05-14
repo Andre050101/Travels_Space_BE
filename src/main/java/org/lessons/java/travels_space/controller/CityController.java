@@ -3,7 +3,9 @@ package org.lessons.java.travels_space.controller;
 import java.util.List;
 
 import org.lessons.java.travels_space.model.City;
+import org.lessons.java.travels_space.model.TouristAttraction;
 import org.lessons.java.travels_space.service.CityService;
+import org.lessons.java.travels_space.service.TouristAttractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,9 @@ public class CityController {
 
     @Autowired
     private CityService cityService;
+
+    @Autowired
+    TouristAttractionService attrService;
 
     // Index
     @GetMapping
@@ -82,6 +87,10 @@ public class CityController {
     // Delete
     @PostMapping("delete/{id}")
     public String delete(@PathVariable("id") Integer id) {
+        City city = cityService.getById(id);
+        for (TouristAttraction attraction : city.getTouristAttractions()) {
+            attrService.delete(attraction);
+        }
         cityService.deleteById(id);
         return "redirect:/cities";
     }

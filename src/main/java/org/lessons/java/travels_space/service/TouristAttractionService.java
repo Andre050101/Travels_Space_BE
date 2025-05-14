@@ -21,4 +21,8 @@ public class TouristAttractionService {
         return attrAttempt.get();
     }
 
+    public void delete(TouristAttraction attr) {
+        attrRepo.deleteById(attr.getId());
+    }
+
 }
