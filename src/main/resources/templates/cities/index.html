@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Cities</title>
+</head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('cities')}"></nav>
+    <main class="container">
+        <h1>Choose a city that fit you!</h1>
+        <section class="row">
+            <div class="col-12">
+                <table class="table" th:if="${cities.size() > 0}">
+                    <thead>
+                        <tr>
+                            <th>ID:</th>
+                            <th>Name:</th>
+                            <th>Province:</th>
+                            <th>Region:</th>
+                            <th>Country:</th>
+                            <th>Postal Code:</th>
+                            <th>See more:</th>
+                            <th>Edit:</th>
+                            <th>Delete:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="city : ${cities}" th:object="${city}">
+                            <td>[[*{id}]]</td>
+                            <td>[[*{name}]]</td>
+                            <td>[[*{province}]]</td>
+                            <td>[[*{region}]]€</td>
+                            <td>[[*{country}]]€</td>
+                            <td>[[*{postal_code}]]</td>
+                            <td>
+                                <a href="/"> <!--@{/pizzas/{id}(id=*{id})}-->
+                                    <button class="btn btn-info">
+                                        <strong>Details</strong>
+                                    </button>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/"> <!--th:href="@{/pizzas/edit/{id}(id=*{id})}"-->
+                                    <button class="btn btn-primary">
+                                        <strong>Edit</strong>
+                                    </button>
+                                </a>
+                            </td>
+                            <td>
+                                <!--Form-->
+                                <form action="#" method="post"> <!--th:action="@{/pizzas/delete/{id}(id=*{id})}"-->
+                                    <button type="submit" class="btn btn-danger">
+                                        <strong>Delete</strong>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <p th:text="'No cities available at the moment...'" th:unless="${cities.size() > 0}"></p>
+            </div>
+
+        </section>
+
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+</html>

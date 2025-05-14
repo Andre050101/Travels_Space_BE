@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Cities</title>
 </head>
 <body>
-    <h1>Sei in home!</h1>
+    <nav th:replace="~{fragments/navbar :: navbar('cities')}"></nav>
+    <main class="container">
+        <h1>Homepage</h1>
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
 </body>
 </html>

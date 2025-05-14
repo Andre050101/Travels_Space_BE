@@ -104,4 +104,10 @@ public class City {
         this.touristAttractions = touristAttractions;
     }
 
+    @Override
+    public String toString() {
+        return "ID: " + this.id + ", Name: " + this.name + ", Province: " + this.province +
+                ", Region: " + this.region + ", Country: " + this.country + ", Postal code: " + this.postal_code;
+    }
+
 }
