@@ -8,7 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -47,6 +49,12 @@ public class TouristAttraction {
     @org.hibernate.annotations.UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    // Relazione manyTo1 con city
+    @ManyToOne
+    @JoinColumn(name = "cityId", nullable = false)
+    private City city;
+
+    // Getter e setter
     public Integer getId() {
         return id;
     }
@@ -117,6 +125,14 @@ public class TouristAttraction {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
 }

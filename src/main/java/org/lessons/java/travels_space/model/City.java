@@ -1,10 +1,13 @@
 package org.lessons.java.travels_space.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -38,6 +41,10 @@ public class City {
     private String country;
 
     private String postal_code;
+
+    // Relazione onetoMany con touristAttraction
+    @OneToMany(mappedBy = "city")
+    private List<TouristAttraction> touristAttractions;
 
     // Getter e setter
 
@@ -87,6 +94,14 @@ public class City {
 
     public void setPostal_code(String postal_code) {
         this.postal_code = postal_code;
+    }
+
+    public List<TouristAttraction> getTouristAttractions() {
+        return touristAttractions;
+    }
+
+    public void setTouristAttractions(List<TouristAttraction> touristAttractions) {
+        this.touristAttractions = touristAttractions;
     }
 
 }
