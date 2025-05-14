@@ -8,6 +8,11 @@
     <nav th:replace="~{fragments/navbar :: navbar('cities')}"></nav>
     <main class="container">
         <h1>Homepage</h1>
+        <a th:href="@{/cities/create}">
+            <button class="btn btn-primary">
+                <strong>Create new City</strong>
+            </button>
+        </a>
     </main>
     <div th:replace="~{fragments/resources :: scripts}"></div>
 </body>

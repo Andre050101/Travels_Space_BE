@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title th:text="${pageTitle}">City Form</title>
+</head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('cities')}"></nav>
+    <main class="container">
+        <h1 th:text="${pageTitle}">City Form</h1>
+        <hr />
+        <section class="row">
+            <div class="col-12">
+               <form id="city-form" th:action="@{${formAction}}" th:object="${city}" method="post">
+                <div class="mb-3" th:if="${#fields.hasErrors()}">
+                    <ul class="alert alert-danger ps-5">
+                        <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+                    </ul>
+                    
+                </div>    
+                
+                <div class="mb-3">
+                        <label class="form-label" for="name">Name:</label>
+                        <input class="form-control" type="text" id="name" th:field="*{name}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="province">Province:</label>
+                        <input class="form-control" id="province" th:field="*{province}"></input>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="region">Region:</label>
+                        <input class="form-control" type="text" id="region" th:field="*{region}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="country">Country:</label>
+                        <input class="form-control" type="text" id="country" th:field="*{country}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="postal_code">Postal code:</label>
+                        <input class="form-control" type="text" id="postal_code" th:field="*{postal_code}">
+                    </div>
+
+                    <div class="mb-3 d-flex justify-content-between">
+                        <input type="submit" class="btn btn-info" th:value="${submitLabel}">
+                        <input type="reset" class="btn btn-warning" value="Reset all fields">
+                    </div>
+               </form>
+            </div>
+        </section>
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+</html>

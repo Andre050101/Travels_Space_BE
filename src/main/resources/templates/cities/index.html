@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
-    <title>Cities</title>
+    <title>Cities Index</title>
 </head>
 <body>
     <nav th:replace="~{fragments/navbar :: navbar('cities')}"></nav>
@@ -29,18 +29,18 @@
                             <td>[[*{id}]]</td>
                             <td>[[*{name}]]</td>
                             <td>[[*{province}]]</td>
-                            <td>[[*{region}]]€</td>
-                            <td>[[*{country}]]€</td>
+                            <td>[[*{region}]]</td>
+                            <td>[[*{country}]]</td>
                             <td>[[*{postal_code}]]</td>
                             <td>
-                                <a href="/"> <!--@{/pizzas/{id}(id=*{id})}-->
+                                <a th:href="@{/cities/{id}(id=*{id})}"> 
                                     <button class="btn btn-info">
                                         <strong>Details</strong>
                                     </button>
                                 </a>
                             </td>
                             <td>
-                                <a href="/"> <!--th:href="@{/pizzas/edit/{id}(id=*{id})}"-->
+                                <a th:href="@{/cities/edit/{id}(id=*{id})}">
                                     <button class="btn btn-primary">
                                         <strong>Edit</strong>
                                     </button>
@@ -48,7 +48,7 @@
                             </td>
                             <td>
                                 <!--Form-->
-                                <form action="#" method="post"> <!--th:action="@{/pizzas/delete/{id}(id=*{id})}"-->
+                                <form action="#" th:action="@{/cities/delete/{id}(id=*{id})}" method="post"> 
                                     <button type="submit" class="btn btn-danger">
                                         <strong>Delete</strong>
                                     </button>

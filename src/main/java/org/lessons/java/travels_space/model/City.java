@@ -20,7 +20,7 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(min = 5, max = 25, message = "city name must contain from 5 to 25 characters")
+    @Size(min = 2, max = 25, message = "city name must contain from 2 to 25 characters")
     @Column(name = "city_name", nullable = false)
     @NotBlank
     private String name;

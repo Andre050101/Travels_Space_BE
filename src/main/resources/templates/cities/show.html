@@ -1,11 +1,95 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>City Show</title>
 </head>
 <body>
-    
+    <nav th:replace="~{fragments/navbar :: navbar('cities')}"></nav>
+    <main class="container">
+        <h1 th:text="${city.name}"></h1>
+        <section class="row">
+            <div class="col-12">
+                <h2>Info:</h2>
+                <ul class="list-unstyled" th:object="${city}">
+                    <li>Province: [[*{province}]]</li>
+                    <li>Region: [[*{region}]]</li>
+                    <li>Country: [[*{country}]]</li>
+                    <li>Postal code: [[*{postal_code}]]</li>
+                </ul>
+
+                
+            </div>
+        </section>
+        <section class="row">
+            <div class="col-12">
+                <h2>Attractions: </h2>
+            <!-- <table class="table"> <!--th:if="${attractions.size() > 0}"
+                    <thead>
+                        <tr>
+                            <th>ID:</th>
+                            <th>Name:</th>
+                            <th>Description:</th>
+                            <th>Address:</th>
+                            <th>Opening Hours:</th>
+                            <th>Ticket Price:</th>
+                            <th>Website:</th>
+                            <th>Created at:</th>
+                            <th>Updated at:</th>
+                            <th>See more:</th>
+                            <th>Edit:</th>
+                            <th>Delete:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr > <!--th:each="attraction : ${attractions}" th:object="${attraction}"
+                            <td>[[*{id}]]</td>
+                            <td>[[*{name}]]</td>
+                            <td>[[*{description}]]</td>
+                            <td>[[*{address}]]</td>
+                            <td>[[*{openingHours}]]</td>
+                            <td>[[*{ticketPrice}]]</td>
+                            <td>[[*{website}]]</td>
+                            <td>[[*{createdAt}]]</td>
+                            <td>[[*{updatedAt}]]</td>
+                            <td>
+                                <a href="/"> <!--th:href="@{/cities/{id}(id=*{id})}"
+                                    <button class="btn btn-info">
+                                        <strong>Details</strong>
+                                    </button>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/"> <!--th:href="@{/cities/edit/{id}(id=*{id})}"
+                                    <button class="btn btn-primary">
+                                        <strong>Edit</strong>
+                                    </button>
+                                </a>
+                            </td>
+                            <td>
+                               Form-->
+                                <!-- <form action="#"  method="post"> <!--th:action="@{/cities/delete/{id}(id=*{id})}"
+                                    <button type="submit" class="btn btn-danger">
+                                        <strong>Delete</strong>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <p th:text="'No attractions available at the moment...'" th:unless="${attractions.size() > 0}"></p>-->
+            
+                
+            </div>
+        </section>
+
+        <a th:href="@{../cities}">
+            <button class="btn btn-info">Back to the cities</button>
+        </a>
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
 </body>
 </html>

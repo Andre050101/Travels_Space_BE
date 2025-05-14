@@ -34,7 +34,7 @@ public class CityController {
     }
 
     // Show
-    @GetMapping("id")
+    @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("city", cityService.getById(id));
         return "/cities/show";
@@ -44,13 +44,17 @@ public class CityController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("city", new City());
-        return "/cities/create";
+        model.addAttribute("formAction", "/cities/create");
+        model.addAttribute("pageTitle", "Add new city");
+        model.addAttribute("submitLabel", "Add");
+
+        return "/cities/createOrEdit";
     }
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("city") City formCity, BindingResult binding, Model model) {
         if (binding.hasErrors()) {
-            return "/cities/create";
+            return "/cities/createOrEdit";
         }
         cityService.create(formCity);
         return "redirect:/cities";
@@ -60,13 +64,16 @@ public class CityController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("city", cityService.getById(id));
-        return "cities/edit";
+        model.addAttribute("formAction", "/cities/edit/" + id);
+        model.addAttribute("pageTitle", "Edit city");
+        model.addAttribute("submitLabel", "Edit");
+        return "cities/createOrEdit";
     }
 
     @PostMapping("/edit/{id}")
     public String update(@Valid @ModelAttribute("city") City formCity, BindingResult binding, Model model) {
         if (binding.hasErrors()) {
-            return "cities/edit";
+            return "cities/createOrEdit";
         }
         cityService.update(formCity);
         return "redirect:/cities";
