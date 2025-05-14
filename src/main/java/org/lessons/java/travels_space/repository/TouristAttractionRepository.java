@@ -1,5 +1,8 @@
 package org.lessons.java.travels_space.repository;
 
-public class TouristAttractionRepository {
+import org.lessons.java.travels_space.model.TouristAttraction;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TouristAttractionRepository extends JpaRepository<TouristAttraction, Integer> {
 
 }
