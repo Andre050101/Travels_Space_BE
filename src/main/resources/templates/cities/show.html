@@ -23,7 +23,12 @@
                         <ul>
                             <li th:each="photo : *{photos}">
                                 <a th:href="${#strings.startsWith(photo.url, 'http') ? photo.url : 'https://' + photo.url}"
-                                   th:text="${photo.url}" target="_blank"></a>
+                                   th:text="${photo.url}" target="_blank">
+                                </a>
+                                <form th:action="@{/cities/{cityId}/photos/{photoId}/delete(cityId=${city.id}, photoId=${photo.id})}" method="post" style="display:inline;">
+                                    <input type="hidden" name="_method" value="delete" />
+                                    <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questa foto?')">🗑️ Elimina</button>
+                                  </form>
                             </li>
                         </ul>
                     </li>

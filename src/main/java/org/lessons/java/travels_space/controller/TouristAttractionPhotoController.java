@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("//touristAttractions/{touristAttractionId}/photos")
+@RequestMapping("/touristAttractions/{touristAttractionId}/photos")
 public class TouristAttractionPhotoController {
 
     @Autowired

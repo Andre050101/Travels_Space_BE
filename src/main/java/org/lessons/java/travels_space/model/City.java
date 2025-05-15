@@ -3,6 +3,7 @@ package org.lessons.java.travels_space.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,7 +49,7 @@ public class City {
     private List<TouristAttraction> touristAttractions;
 
     // Relazione onetoMany con CityPhoto
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CityPhoto> photos = new ArrayList<>();
     // Getter e setter
 

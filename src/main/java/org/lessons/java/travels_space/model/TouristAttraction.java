@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -58,7 +59,7 @@ public class TouristAttraction {
     private City city;
 
     // Relazione manyTo1 con touristAttractionsPhotos
-    @OneToMany(mappedBy = "touristAttraction")
+    @OneToMany(mappedBy = "touristAttraction", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TouristAttractionPhoto> photos = new ArrayList<>();
 
     // Getter e setter

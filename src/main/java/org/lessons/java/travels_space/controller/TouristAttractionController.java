@@ -154,7 +154,7 @@ public class TouristAttractionController {
         if (photoUrl != null && !photoUrl.trim().isEmpty()) {
             TouristAttractionPhoto photo = new TouristAttractionPhoto();
             photo.setUrl(photoUrl);
-            photo.setAttraction(updated);
+            photo.setTouristAttraction(updated);
             attrPhService.create(photo);
         }
         return "redirect:/cities/" + attraction.getCity().getId();
