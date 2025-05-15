@@ -15,6 +15,10 @@ public class CityService {
     @Autowired
     private CityRepository cityRepo;
 
+    public List<City> searchByName(String name) {
+        return cityRepo.findByNameContainingIgnoreCase(name);
+    }
+
     public List<City> findAll() {
         return cityRepo.findAll();
     }
@@ -22,7 +26,7 @@ public class CityService {
     public City getById(Integer id) {
         Optional<City> cityAttempt = cityRepo.findById(id);
         if (cityAttempt.isEmpty()) {
-            throw new IllegalArgumentException(); // Da cambiare!
+            throw new NotFoundException("City with ID: " + cityAttempt.get().getId() + " not found!");
         }
 
         return cityAttempt.get();

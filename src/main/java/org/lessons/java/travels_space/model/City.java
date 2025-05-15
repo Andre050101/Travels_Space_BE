@@ -1,5 +1,6 @@
 package org.lessons.java.travels_space.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -46,6 +47,9 @@ public class City {
     @OneToMany(mappedBy = "city")
     private List<TouristAttraction> touristAttractions;
 
+    // Relazione onetoMany con CityPhoto
+    @OneToMany(mappedBy = "city")
+    private List<CityPhoto> photos = new ArrayList<>();
     // Getter e setter
 
     public Integer getId() {
@@ -102,6 +106,14 @@ public class City {
 
     public void setTouristAttractions(List<TouristAttraction> touristAttractions) {
         this.touristAttractions = touristAttractions;
+    }
+
+    public List<CityPhoto> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<CityPhoto> photos) {
+        this.photos = photos;
     }
 
     @Override

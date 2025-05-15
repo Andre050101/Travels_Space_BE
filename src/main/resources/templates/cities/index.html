@@ -6,10 +6,15 @@
 </head>
 <body>
     <nav th:replace="~{fragments/navbar :: navbar('cities')}"></nav>
-    <main class="container">
+    <main class="container pt-5 mt-5">
         <h1>Choose a city that fit you!</h1>
         <section class="row">
             <div class="col-12">
+                <form th:action="@{/cities/search}" method="get" class="d-flex mb-4">
+                    <input type="text" name="query" class="form-control me-2" placeholder="Search by city name..." th:value="${query}">
+                    <button type="submit" class="btn btn-outline-primary">Search</button>
+                    <a th:href="@{/cities}" class="btn btn-outline-warning mx-2">Reset</a>
+                </form>
                 <table class="table" th:if="${cities.size() > 0}">
                     <thead>
                         <tr>

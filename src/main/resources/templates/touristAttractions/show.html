@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav th:replace="~{fragments/navbar :: navbar('touristAttractions')}"></nav>
-    <main class="container">
+    <main class="container pt-5 mt-5">
         <h1 th:text="${touristAttraction.getName()}"></h1>
         <section class="row">
             <div class="col-12">
@@ -23,12 +23,15 @@
                     <li>Description: [[*{description}]]</li>
                     <li>Created at: [[*{createdAt}]]</li>
                     <li>Updated at: [[*{updatedAt}]]</li>
-                    <li>
-                        <a th:href="@{../../cities/{id}(id=*{id})}">
-                            <button class="btn btn-info">Back to the city</button>
-                        </a>
-                    </li>
                 </ul>
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{../../cities/{id}(id=${touristAttraction.getCity().getId()})}">
+                        <button class="btn btn-info">Back to the city</button>
+                    </a>
+                    <a th:href="@{/touristAttractions}">
+                        <button class="btn btn-info">Back to the attractions</button>
+                    </a>
+                </div>
             </div>
         </section>
     </main>

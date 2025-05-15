@@ -1,5 +1,6 @@
 package org.lessons.java.travels_space.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.lessons.java.travels_space.exception.NotFoundException;
@@ -14,12 +15,20 @@ public class TouristAttractionService {
     @Autowired
     private TouristAttractionRepository attrRepo;
 
+    public List<TouristAttraction> searchByNameOrCity(String query) {
+        return attrRepo.findByNameContainingIgnoreCaseOrCity_NameContainingIgnoreCase(query, query);
+    }
+
     public TouristAttraction getById(Integer id) {
         Optional<TouristAttraction> attrAttempt = attrRepo.findById(id);
         if (attrAttempt.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new NotFoundException("CAttraction with ID: " + attrAttempt.get().getId() + " not found!");
         }
         return attrAttempt.get();
+    }
+
+    public List<TouristAttraction> findAll() {
+        return attrRepo.findAll();
     }
 
     public TouristAttraction create(TouristAttraction attr) {
@@ -28,7 +37,7 @@ public class TouristAttractionService {
 
     public TouristAttraction update(TouristAttraction attr) {
         if (!attrRepo.existsById(attr.getId())) {
-            throw new NotFoundException("Attraction with id " + attr.getId() + " not found!");
+            throw new NotFoundException("Attraction with ID: " + attr.getId() + " not found!");
         }
         return create(attr);
     }

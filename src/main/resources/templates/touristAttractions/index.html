@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Attractions Index</title>
+</head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('touristAttractions')}"></nav>
+    <main class="container pt-5 mt-5">
+        <div class="d-flex justify-content-between">
+            <h1>Look at all the attractions!</h1>
+            <a th:href="@{/touristAttractions/create}">
+                <button class="btn btn-warning">Add new Attraction</button>
+            </a>
+        </div>
+        <section class="row">
+            <div class="col-12">
+                <form th:action="@{/touristAttractions/search}" method="get" class="d-flex mb-4">
+                    <input type="text" name="query" class="form-control me-2" placeholder="Search by attraction or city name..." th:value="${query}">
+                    <button type="submit" class="btn btn-outline-success">Search</button>
+                    <a th:href="@{/touristAttractions}" class="btn btn-outline-warning mx-2">Reset</a>
+                </form>
+                <table class="table" th:if="${touristAttractions.size() > 0}">
+                    <thead>
+                        <tr>
+                            <th>ID:</th>
+                            <th>City:</th>
+                            <th>Name:</th>
+                            <th>Address:</th>
+                            <th>Opening hours:</th>
+                            <th>Ticket price:</th>
+                            <th>See more:</th>
+                            <th>Edit:</th>
+                            <th>Delete:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="touristAttraction : ${touristAttractions}" th:object="${touristAttraction}">
+                            <td>[[*{id}]]</td>
+                            <td>[[*{city.getName()}]]</td>
+                            <td>[[*{name}]]</td>
+                            <td>[[*{address}]]</td>
+                            <td>[[*{openingHours}]]</td>
+                            <td>[[*{ticketPrice}]]</td>
+                            <td>
+                                <a th:href="@{/touristAttractions/{id}(id=*{id})}"> 
+                                    <button class="btn btn-info">
+                                        <strong>Details</strong>
+                                    </button>
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{/touristAttractions/edit/{id}(id=*{id})}">
+                                    <button class="btn btn-primary">
+                                        <strong>Edit</strong>
+                                    </button>
+                                </a>
+                            </td>
+                            <td>
+                                <!--Form-->
+                                <form action="#" th:action="@{/touristAttractions/delete/{id}(id=*{id})}" method="post"> 
+                                    <button type="submit" class="btn btn-danger">
+                                        <strong>Delete</strong>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <p th:text="'No attractions available at the moment...'" th:unless="${touristAttractions.size() > 0}" class="mt-3"></p>
+            </div>
+
+        </section>
+
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+</html>

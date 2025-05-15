@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 
@@ -68,9 +69,10 @@ public class CityController {
     // Edit e update
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("city", cityService.getById(id));
+        City city = cityService.getById(id);
+        model.addAttribute("city", city);
         model.addAttribute("formAction", "/cities/edit/" + id);
-        model.addAttribute("pageTitle", "Edit city");
+        model.addAttribute("pageTitle", "Edit " + city.getName());
         model.addAttribute("submitLabel", "Edit");
         return "cities/createOrEdit";
     }
@@ -93,5 +95,13 @@ public class CityController {
         }
         cityService.deleteById(id);
         return "redirect:/cities";
+    }
+
+    // SearchByName
+    @GetMapping("/search")
+    public String searchCities(@RequestParam("query") String query, Model model) {
+        List<City> result = cityService.searchByName(query);
+        model.addAttribute("cities", result);
+        return "cities/index";
     }
 }

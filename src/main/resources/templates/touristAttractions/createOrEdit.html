@@ -6,7 +6,7 @@
 </head>
 <body>
     <nav th:replace="~{fragments/navbar :: navbar('touristAttractions')}"></nav>
-    <main class="container">
+    <main class="container pt-5 mt-5">
         <h1 th:text="${pageTitle}">Attraction Form</h1>
         <hr />
         <section class="row">
@@ -18,7 +18,18 @@
                     </ul>
                     
                 </div>    
-                <input type="hidden" th:name="city.id" th:value="${city.id}" />
+                <div class="mb-3" th:if="${city != null}">
+                    <input type="hidden" th:name="city.id" th:value="${city.id}" />
+                    <label class="form-label">City:</label>
+                    <input type="text" class="form-control" th:value="${city.name}" readonly />
+                </div>
+                
+                <div class="mb-3" th:if="${city == null}">
+                    <label class="form-label" for="city">Select City:</label>
+                    <select class="form-select" id="city" th:field="*{city.id}">
+                        <option th:each="c : ${cities}" th:value="${c.id}" th:text="${c.name}">City</option>
+                    </select>
+                </div>
                 
                 <div class="mb-3">
                         <label class="form-label" for="name">Name:</label>
