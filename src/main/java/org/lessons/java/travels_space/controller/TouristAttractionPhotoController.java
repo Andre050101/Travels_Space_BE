@@ -33,17 +33,19 @@ public class TouristAttractionPhotoController {
 
     // Salva nuova foto
     @PostMapping
-    public String savePhoto(@PathVariable Integer attractionId, @ModelAttribute("photo") TouristAttractionPhoto photo) {
-        TouristAttraction attraction = attrServ.getById(attractionId);
+    public String savePhoto(@PathVariable("touristAttractionId") Integer touristAttractionId,
+            @ModelAttribute("photo") TouristAttractionPhoto photo) {
+        TouristAttraction attraction = attrServ.getById(touristAttractionId);
         photo.setAttraction(attraction);
         attrPhServ.create(photo);
-        return "redirect:/attractions/" + attractionId;
+        return "redirect:/touristAttractions/" + touristAttractionId;
     }
 
     // Elimina una foto
     @PostMapping("/{photoId}/delete")
-    public String deletePhoto(@PathVariable Integer attractionId, @PathVariable Integer photoId) {
+    public String deletePhoto(@PathVariable("touristAttractionId") Integer touristAttractionId,
+            @PathVariable Integer photoId) {
         attrPhServ.delete(photoId);
-        return "redirect:/attractions/" + attractionId;
+        return "redirect:/touristAttractions/" + touristAttractionId; // Corretto il percorso
     }
 }

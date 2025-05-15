@@ -42,4 +42,12 @@ public class TouristAttractionPhoto {
         this.touristAttraction = attraction;
     }
 
+    public TouristAttraction getTouristAttraction() {
+        return touristAttraction;
+    }
+
+    public void setTouristAttraction(TouristAttraction touristAttraction) {
+        this.touristAttraction = touristAttraction;
+    }
+
 }

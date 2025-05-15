@@ -18,6 +18,15 @@
                     <li>Region: [[*{region}]]</li>
                     <li>Country: [[*{country}]]</li>
                     <li>Postal code: [[*{postal_code}]]</li>
+                    <li>
+                        <strong>Photos:</strong>
+                        <ul>
+                            <li th:each="photo : *{photos}">
+                                <a th:href="${#strings.startsWith(photo.url, 'http') ? photo.url : 'https://' + photo.url}"
+                                   th:text="${photo.url}" target="_blank"></a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
 
                 

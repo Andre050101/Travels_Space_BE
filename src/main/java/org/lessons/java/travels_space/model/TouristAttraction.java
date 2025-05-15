@@ -142,4 +142,12 @@ public class TouristAttraction {
         this.city = city;
     }
 
+    public List<TouristAttractionPhoto> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<TouristAttractionPhoto> photos) {
+        this.photos = photos;
+    }
+
 }

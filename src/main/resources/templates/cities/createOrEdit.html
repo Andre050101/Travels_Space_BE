@@ -44,6 +44,11 @@
                         <input class="form-control" type="text" id="postal_code" th:field="*{postal_code}">
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label" for="photoUrl">Photo URL:</label>
+                        <input class="form-control" type="text" id="photoUrl" name="photoUrl">
+                    </div>
+
                     <div class="mb-3 d-flex justify-content-between">
                         <input type="submit" class="btn btn-info" th:value="${submitLabel}">
                         <input type="reset" class="btn btn-warning" value="Reset all fields">

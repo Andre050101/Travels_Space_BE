@@ -3,7 +3,9 @@ package org.lessons.java.travels_space.controller;
 import java.util.List;
 
 import org.lessons.java.travels_space.model.City;
+import org.lessons.java.travels_space.model.CityPhoto;
 import org.lessons.java.travels_space.model.TouristAttraction;
+import org.lessons.java.travels_space.service.CityPhotoService;
 import org.lessons.java.travels_space.service.CityService;
 import org.lessons.java.travels_space.service.TouristAttractionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,10 @@ public class CityController {
     private CityService cityService;
 
     @Autowired
-    TouristAttractionService attrService;
+    private TouristAttractionService attrService;
+
+    @Autowired
+    private CityPhotoService cityPhService;
 
     // Index
     @GetMapping
@@ -58,11 +63,19 @@ public class CityController {
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("city") City formCity, BindingResult binding, Model model) {
+    public String store(@Valid @ModelAttribute("city") City formCity, BindingResult binding,
+            @RequestParam(name = "photoUrl", required = false) String photoUrl, Model model) {
         if (binding.hasErrors()) {
             return "/cities/createOrEdit";
         }
-        cityService.create(formCity);
+        City savedCity = cityService.create(formCity);
+
+        if (photoUrl != null && !photoUrl.trim().isEmpty()) {
+            CityPhoto photo = new CityPhoto();
+            photo.setUrl(photoUrl);
+            photo.setCity(savedCity);
+            cityPhService.create(photo);
+        }
         return "redirect:/cities";
     }
 
@@ -78,11 +91,18 @@ public class CityController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("city") City formCity, BindingResult binding, Model model) {
+    public String update(@Valid @ModelAttribute("city") City formCity, BindingResult binding,
+            @RequestParam(name = "photoUrl", required = false) String photoUrl, Model model) {
         if (binding.hasErrors()) {
             return "cities/createOrEdit";
         }
-        cityService.update(formCity);
+        City updatedCity = cityService.update(formCity);
+        if (photoUrl != null && !photoUrl.trim().isEmpty()) {
+            CityPhoto photo = new CityPhoto();
+            photo.setUrl(photoUrl);
+            photo.setCity(updatedCity);
+            cityPhService.create(photo);
+        }
         return "redirect:/cities";
     }
 

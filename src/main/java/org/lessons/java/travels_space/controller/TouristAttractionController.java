@@ -3,7 +3,9 @@ package org.lessons.java.travels_space.controller;
 import java.util.List;
 
 import org.lessons.java.travels_space.model.TouristAttraction;
+import org.lessons.java.travels_space.model.TouristAttractionPhoto;
 import org.lessons.java.travels_space.service.CityService;
+import org.lessons.java.travels_space.service.TouristAttractionPhotoService;
 import org.lessons.java.travels_space.service.TouristAttractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,9 @@ public class TouristAttractionController {
 
     @Autowired
     private TouristAttractionService attrService;
+
+    @Autowired
+    private TouristAttractionPhotoService attrPhService;
 
     @Autowired
     private CityService cityService;
@@ -61,15 +66,23 @@ public class TouristAttractionController {
     @PostMapping("/create/{cityId}")
     public String store(@PathVariable Integer cityId,
             @Valid @ModelAttribute("touristAttraction") TouristAttraction formAttr,
-            BindingResult binding,
+            BindingResult binding, @RequestParam(name = "photoUrl", required = false) String photoUrl,
             Model model) {
         if (binding.hasErrors()) {
             model.addAttribute("city", cityService.getById(cityId));
+            model.addAttribute("formAction", "/touristAttractions/create/" + cityId);
+            model.addAttribute("submitLabel", "Add");
             return "/touristAttractions/createOrEdit";
         }
 
         formAttr.setCity(cityService.getById(cityId));
-        attrService.create(formAttr);
+        TouristAttraction saved = attrService.create(formAttr);
+        if (photoUrl != null && !photoUrl.trim().isEmpty()) {
+            TouristAttractionPhoto photo = new TouristAttractionPhoto();
+            photo.setUrl(photoUrl);
+            photo.setAttraction(saved);
+            attrPhService.create(photo);
+        }
         return "redirect:/cities/" + cityId;
     }
 
@@ -88,7 +101,7 @@ public class TouristAttractionController {
 
     @PostMapping("/create")
     public String storeInAttractions(@Valid @ModelAttribute("touristAttraction") TouristAttraction formAttr,
-            BindingResult binding, Model model) {
+            BindingResult binding, @RequestParam(name = "photoUrl", required = false) String photoUrl, Model model) {
         if (formAttr.getCity() == null || formAttr.getCity().getId() == null) {
             binding.rejectValue("city", "NotNull", "City must be selected.");
         }
@@ -99,7 +112,13 @@ public class TouristAttractionController {
             model.addAttribute("submitLabel", "Add");
             return "/touristAttractions/createOrEdit";
         }
-        attrService.create(formAttr);
+        TouristAttraction saved = attrService.create(formAttr);
+        if (photoUrl != null && !photoUrl.trim().isEmpty()) {
+            TouristAttractionPhoto photo = new TouristAttractionPhoto();
+            photo.setUrl(photoUrl);
+            photo.setAttraction(saved);
+            attrPhService.create(photo);
+        }
         return "redirect:/touristAttractions";
     }
 
@@ -118,18 +137,26 @@ public class TouristAttractionController {
     @PostMapping("/edit/{id}")
     public String update(@PathVariable Integer id,
             @Valid @ModelAttribute("touristAttraction") TouristAttraction attraction,
-            BindingResult binding,
+            BindingResult binding, @RequestParam(name = "photoUrl", required = false) String photoUrl,
             Model model) {
         TouristAttraction original = attrService.getById(id);
 
         if (binding.hasErrors()) {
             model.addAttribute("city", original.getCity());
+            model.addAttribute("formAction", "/touristAttractions/edit/" + id);
+            model.addAttribute("submitLabel", "Edit");
             return "/touristAttractions/createOrEdit";
         }
 
         attraction.setCity(original.getCity());
 
-        attrService.update(attraction);
+        TouristAttraction updated = attrService.update(attraction);
+        if (photoUrl != null && !photoUrl.trim().isEmpty()) {
+            TouristAttractionPhoto photo = new TouristAttractionPhoto();
+            photo.setUrl(photoUrl);
+            photo.setAttraction(updated);
+            attrPhService.create(photo);
+        }
         return "redirect:/cities/" + attraction.getCity().getId();
     }
 

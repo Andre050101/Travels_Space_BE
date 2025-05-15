@@ -24,6 +24,16 @@
                     <li>Created at: [[*{createdAt}]]</li>
                     <li>Updated at: [[*{updatedAt}]]</li>
                 </ul>
+                <h2>Photos:</h2>
+                <ul th:if="${not #lists.isEmpty(touristAttraction.photos)}">
+                    <li th:each="photo : ${touristAttraction.photos}">
+                        <a th:href="${photo.url}" th:text="${photo.url}" target="_blank" rel="noopener noreferrer"></a>
+                    </li>
+                </ul>
+<div th:if="${#lists.isEmpty(touristAttraction.photos)}">
+    <p>No photos available for this attraction.</p>
+</div>
+                
                 <div class="d-flex justify-content-between">
                     <a th:href="@{../../cities/{id}(id=${touristAttraction.getCity().getId()})}">
                         <button class="btn btn-info">Back to the city</button>
