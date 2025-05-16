@@ -31,7 +31,7 @@
                         th:text="${photo.url}" target="_blank"></a>
                         <form th:action="@{/touristAttractions/{touristAttractionId}/photos/{photoId}/delete(touristAttractionId=${touristAttraction.id}, photoId=${photo.id})}" method="post" style="display:inline;">
                             <input type="hidden" name="_method" value="delete" />
-                            <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questa foto?')">🗑️ Elimina</button>
+                            <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questa foto?')" class="btn btn-danger">Delete</button>
                           </form>
                     </li>
                 </ul>

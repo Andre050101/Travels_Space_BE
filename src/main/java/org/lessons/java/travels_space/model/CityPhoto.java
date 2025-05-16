@@ -1,5 +1,7 @@
 package org.lessons.java.travels_space.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -16,6 +18,7 @@ public class CityPhoto {
 
     @ManyToOne
     @JoinColumn(name = "city", nullable = false)
+    @JsonBackReference
     private City city;
 
     public Integer getId() {

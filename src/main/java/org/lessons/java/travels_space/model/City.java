@@ -3,6 +3,8 @@ package org.lessons.java.travels_space.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,10 +48,12 @@ public class City {
 
     // Relazione onetoMany con touristAttraction
     @OneToMany(mappedBy = "city")
+    @JsonManagedReference
     private List<TouristAttraction> touristAttractions;
 
     // Relazione onetoMany con CityPhoto
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<CityPhoto> photos = new ArrayList<>();
     // Getter e setter
 

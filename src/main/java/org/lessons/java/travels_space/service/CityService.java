@@ -26,9 +26,8 @@ public class CityService {
     public City getById(Integer id) {
         Optional<City> cityAttempt = cityRepo.findById(id);
         if (cityAttempt.isEmpty()) {
-            throw new NotFoundException("City with ID: " + cityAttempt.get().getId() + " not found!");
+            throw new NotFoundException("City with ID: " + id + " not found!");
         }
-
         return cityAttempt.get();
     }
 

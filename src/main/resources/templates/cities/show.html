@@ -27,7 +27,7 @@
                                 </a>
                                 <form th:action="@{/cities/{cityId}/photos/{photoId}/delete(cityId=${city.id}, photoId=${photo.id})}" method="post" style="display:inline;">
                                     <input type="hidden" name="_method" value="delete" />
-                                    <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questa foto?')">🗑️ Elimina</button>
+                                    <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questa foto?')" class="btn btn-danger">Delete</button>
                                   </form>
                             </li>
                         </ul>
