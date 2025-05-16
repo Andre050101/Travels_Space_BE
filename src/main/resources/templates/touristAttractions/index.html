@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
     <title>Attractions Index</title>
@@ -9,7 +11,7 @@
     <main class="container pt-5 mt-5">
         <div class="d-flex justify-content-between">
             <h1>Look at all the attractions!</h1>
-            <a th:href="@{/touristAttractions/create}">
+            <a th:href="@{/touristAttractions/create}" sec:authorize="hasAuthority('ADMIN')">
                 <button class="btn btn-warning">Add new Attraction</button>
             </a>
         </div>
@@ -30,8 +32,8 @@
                             <th>Opening hours:</th>
                             <th>Ticket price:</th>
                             <th>See more:</th>
-                            <th>Edit:</th>
-                            <th>Delete:</th>
+                            <th sec:authorize="hasAuthority('ADMIN')">Edit:</th>
+                            <th sec:authorize="hasAuthority('ADMIN')">Delete:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,14 +51,14 @@
                                     </button>
                                 </a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <a th:href="@{/touristAttractions/edit/{id}(id=*{id})}">
                                     <button class="btn btn-primary">
                                         <strong>Edit</strong>
                                     </button>
                                 </a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <!--Form-->
                                 <form action="#" th:action="@{/touristAttractions/delete/{id}(id=*{id})}" method="post"> 
                                     <button type="submit" class="btn btn-danger">

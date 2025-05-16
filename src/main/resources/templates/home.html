@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
     <title>Cities</title>
@@ -16,11 +17,12 @@
                     <p class="card-text fs-5 text-muted">
                         Explore cities and manage tourist attractions with ease. Use the interface below to start adding new destinations.
                     </p>
-
-                    <a th:href="@{/cities/create}" class="btn btn-primary btn-lg mt-4">
-                        <i class="bi bi-plus-circle me-2"></i> <!-- usa Bootstrap Icons se disponibile -->
-                        Create New City
-                    </a>
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/cities/create}" class="btn btn-primary btn-lg mt-4">
+                            <i class="bi bi-plus-circle me-2"></i> <!-- usa Bootstrap Icons se disponibile -->
+                            Create New City
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

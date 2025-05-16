@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
     <meta charset="UTF-8">
@@ -25,11 +27,11 @@
                     <li>Updated at: [[*{updatedAt}]]</li>
                 </ul>
                 <h2>Photos:</h2>
-                <ul th:if="${not #lists.isEmpty(touristAttraction.photos)}">
+                <ul th:if="${not #lists.isEmpty(touristAttraction.photos)}" class="list-unstyled">
                     <li th:each="photo : ${touristAttraction.photos}">
                         <a th:href="${#strings.startsWith(photo.url, 'http') ? photo.url : 'https://' + photo.url}"
                         th:text="${photo.url}" target="_blank"></a>
-                        <form th:action="@{/touristAttractions/{touristAttractionId}/photos/{photoId}/delete(touristAttractionId=${touristAttraction.id}, photoId=${photo.id})}" method="post" style="display:inline;">
+                        <form th:action="@{/touristAttractions/{touristAttractionId}/photos/{photoId}/delete(touristAttractionId=${touristAttraction.id}, photoId=${photo.id})}" method="post" style="display:inline;" sec:authorize="hasAuthority('ADMIN')">
                             <input type="hidden" name="_method" value="delete" />
                             <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questa foto?')" class="btn btn-danger">Delete</button>
                           </form>

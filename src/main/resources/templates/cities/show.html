@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
     <meta charset="UTF-8">
@@ -25,7 +27,7 @@
                                 <a th:href="${#strings.startsWith(photo.url, 'http') ? photo.url : 'https://' + photo.url}"
                                    th:text="${photo.url}" target="_blank">
                                 </a>
-                                <form th:action="@{/cities/{cityId}/photos/{photoId}/delete(cityId=${city.id}, photoId=${photo.id})}" method="post" style="display:inline;">
+                                <form th:action="@{/cities/{cityId}/photos/{photoId}/delete(cityId=${city.id}, photoId=${photo.id})}" method="post" style="display:inline;" sec:authorize="hasAuthority('ADMIN')">
                                     <input type="hidden" name="_method" value="delete" />
                                     <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questa foto?')" class="btn btn-danger">Delete</button>
                                   </form>
@@ -48,8 +50,8 @@
                             <th>Ticket Price:</th>
                             <th>Website:</th>
                             <th>See more:</th>
-                            <th>Edit:</th>
-                            <th>Delete:</th>
+                            <th sec:authorize="hasAuthority('ADMIN')">Edit:</th>
+                            <th sec:authorize="hasAuthority('ADMIN')">Delete:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,14 +69,14 @@
                                     </button>
                                 </a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <a th:href="@{/touristAttractions/edit/{id}(id=${attraction.id})}"> 
                                     <button class="btn btn-primary">
                                         <strong>Edit</strong>
                                     </button>
                                 </a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                <form action="#" th:action="@{/touristAttractions/delete/{id}(id=${attraction.id})}" method="post">
                                     <button type="submit" class="btn btn-danger">
                                         <strong>Delete</strong>
@@ -92,7 +94,7 @@
         </section>
 
         <div class="d-flex justify-content-between">
-            <a th:href="@{'/touristAttractions/create/' + ${city.id}}">
+            <a th:href="@{'/touristAttractions/create/' + ${city.id}}" sec:authorize="hasAuthority('ADMIN')">
                 <button class="btn btn-warning">Add new Attraction</button>
             </a>
             <a th:href="@{../cities}">

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
     <title>Cities Index</title>
@@ -25,8 +27,8 @@
                             <th>Country:</th>
                             <th>Postal Code:</th>
                             <th>See more:</th>
-                            <th>Edit:</th>
-                            <th>Delete:</th>
+                            <th sec:authorize="hasAuthority('ADMIN')">Edit:</th>
+                            <th sec:authorize="hasAuthority('ADMIN')">Delete:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,14 +46,14 @@
                                     </button>
                                 </a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <a th:href="@{/cities/edit/{id}(id=*{id})}">
                                     <button class="btn btn-primary">
                                         <strong>Edit</strong>
                                     </button>
                                 </a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <!--Form-->
                                 <form action="#" th:action="@{/cities/delete/{id}(id=*{id})}" method="post"> 
                                     <button type="submit" class="btn btn-danger">
