@@ -27,7 +27,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/touristAttractions/create", "/touristAttractions/edit/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/touristAttractions/**").hasAuthority("ADMIN")
 
-                // City Photos "/cities/**/photos", "/cities/**/photos/**"
+                // City Photos
                 .requestMatchers(new AntPathRequestMatcher("/cities/**/photos")).hasAuthority("ADMIN")
                 .requestMatchers(new AntPathRequestMatcher("/cities/**/photos/**")).hasAuthority("ADMIN")
                 // Attractions photos
