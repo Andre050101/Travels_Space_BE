@@ -1,12 +1,18 @@
 package org.lessons.java.travels_space.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "touristAttractions_photos")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id" // Usa l'ID come
+                                                                                          // identificatore unico
+)
 public class TouristAttractionPhoto {
 
     @Id
@@ -18,7 +24,6 @@ public class TouristAttractionPhoto {
 
     @ManyToOne
     @JoinColumn(name = "tourist_attraction_id", nullable = false)
-    @JsonBackReference
     private TouristAttraction touristAttraction;
 
     public Integer getId() {

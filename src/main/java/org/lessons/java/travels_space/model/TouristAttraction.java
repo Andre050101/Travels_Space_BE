@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -24,6 +26,9 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tourist_attractions")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id" // Usa l'ID come
+                                                                                          // identificatore unico
+)
 public class TouristAttraction {
 
     @Id
@@ -64,7 +69,6 @@ public class TouristAttraction {
 
     // Relazione manyTo1 con touristAttractionsPhotos
     @OneToMany(mappedBy = "touristAttraction", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<TouristAttractionPhoto> photos = new ArrayList<>();
 
     // Getter e setter

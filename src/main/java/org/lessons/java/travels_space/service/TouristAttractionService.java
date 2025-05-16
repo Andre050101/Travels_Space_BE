@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.lessons.java.travels_space.exception.NotFoundException;
+import org.lessons.java.travels_space.model.City;
 import org.lessons.java.travels_space.model.TouristAttraction;
 import org.lessons.java.travels_space.repository.TouristAttractionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class TouristAttractionService {
     public TouristAttraction getById(Integer id) {
         Optional<TouristAttraction> attrAttempt = attrRepo.findById(id);
         if (attrAttempt.isEmpty()) {
-            throw new NotFoundException("CAttraction with ID: " + attrAttempt.get().getId() + " not found!");
+            throw new NotFoundException("Attraction with ID: " + id + " not found!");
         }
         return attrAttempt.get();
     }
