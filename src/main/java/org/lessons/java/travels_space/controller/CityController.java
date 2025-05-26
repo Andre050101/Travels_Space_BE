@@ -105,6 +105,7 @@ public class CityController {
             model.addAttribute("formAction", "/cities/edit/" + id);
             model.addAttribute("pageTitle", "Edit " + formCity.getName());
             model.addAttribute("submitLabel", "Edit");
+            model.addAttribute("photoUrl", photoUrl != null ? photoUrl : "");
             return "cities/createOrEdit";
         }
         City updatedCity = cityService.update(formCity);
@@ -132,6 +133,7 @@ public class CityController {
     @GetMapping("/search")
     public String searchCities(@RequestParam("query") String query, Model model) {
         List<City> result = cityService.searchByName(query);
+        model.addAttribute("query", query);
         model.addAttribute("cities", result);
         return "cities/index";
     }

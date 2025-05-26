@@ -69,8 +69,10 @@ public class TouristAttractionController {
             BindingResult binding, @RequestParam(name = "photoUrl", required = false) String photoUrl,
             Model model) {
         if (binding.hasErrors()) {
+
             model.addAttribute("city", cityService.getById(cityId));
             model.addAttribute("formAction", "/touristAttractions/create/" + cityId);
+            model.addAttribute("pageTitle", "Add new Tourist Attraction to " + cityService.getById(cityId).getName());
             model.addAttribute("submitLabel", "Add");
             return "/touristAttractions/createOrEdit";
         }
@@ -131,6 +133,11 @@ public class TouristAttractionController {
         model.addAttribute("formAction", "/touristAttractions/edit/" + id);
         model.addAttribute("pageTitle", "Edit " + attraction.getName() + " in " + attraction.getCity().getName());
         model.addAttribute("submitLabel", "Edit");
+        if (!attraction.getPhotos().isEmpty()) {
+            model.addAttribute("photoUrl", attraction.getPhotos().get(0).getUrl());
+        } else {
+            model.addAttribute("photoUrl", "");
+        }
         return "/touristAttractions/createOrEdit";
     }
 
@@ -142,9 +149,11 @@ public class TouristAttractionController {
         TouristAttraction original = attrService.getById(id);
 
         if (binding.hasErrors()) {
+            model.addAttribute("pageTitle", "Edit " + attraction.getName() + " in " + original.getCity().getName());
             model.addAttribute("city", original.getCity());
             model.addAttribute("formAction", "/touristAttractions/edit/" + id);
             model.addAttribute("submitLabel", "Edit");
+            model.addAttribute("photoUrl", photoUrl != null ? photoUrl : "");
             return "/touristAttractions/createOrEdit";
         }
 
