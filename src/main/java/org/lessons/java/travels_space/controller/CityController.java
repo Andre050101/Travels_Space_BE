@@ -66,6 +66,9 @@ public class CityController {
     public String store(@Valid @ModelAttribute("city") City formCity, BindingResult binding,
             @RequestParam(name = "photoUrl", required = false) String photoUrl, Model model) {
         if (binding.hasErrors()) {
+            model.addAttribute("formAction", "/cities/create");
+            model.addAttribute("pageTitle", "Add new City");
+            model.addAttribute("submitLabel", "Add");
             return "/cities/createOrEdit";
         }
         City savedCity = cityService.create(formCity);
@@ -87,13 +90,21 @@ public class CityController {
         model.addAttribute("formAction", "/cities/edit/" + id);
         model.addAttribute("pageTitle", "Edit " + city.getName());
         model.addAttribute("submitLabel", "Edit");
+        if (!city.getPhotos().isEmpty()) {
+            model.addAttribute("photoUrl", city.getPhotos().get(0).getUrl());
+        } else {
+            model.addAttribute("photoUrl", "");
+        }
         return "cities/createOrEdit";
     }
 
     @PostMapping("/edit/{id}")
     public String update(@Valid @ModelAttribute("city") City formCity, BindingResult binding,
-            @RequestParam(name = "photoUrl", required = false) String photoUrl, Model model) {
+            @RequestParam(name = "photoUrl", required = false) String photoUrl, @PathVariable Integer id, Model model) {
         if (binding.hasErrors()) {
+            model.addAttribute("formAction", "/cities/edit/" + id);
+            model.addAttribute("pageTitle", "Edit " + formCity.getName());
+            model.addAttribute("submitLabel", "Edit");
             return "cities/createOrEdit";
         }
         City updatedCity = cityService.update(formCity);

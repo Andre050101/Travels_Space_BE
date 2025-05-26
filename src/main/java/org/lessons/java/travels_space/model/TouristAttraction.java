@@ -35,17 +35,17 @@ public class TouristAttraction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
+    @NotBlank(message = "Attraction name cannot be blank")
     @Column(name = "attraction_name", nullable = false)
     private String name;
 
     @Lob
     private String description;
 
-    @NotBlank
+    @NotBlank(message = "Attraction address cannot be blank")
     private String address;
 
-    @NotBlank
+    @NotBlank(message = "Attraction opening hours cannot be blank")
     private String openingHours;
 
     @Column(name = "ticket_price", nullable = false)

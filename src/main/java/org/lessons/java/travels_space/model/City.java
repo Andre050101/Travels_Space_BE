@@ -26,22 +26,22 @@ public class City {
 
     @Size(min = 2, max = 25, message = "city name must contain from 2 to 25 characters")
     @Column(name = "city_name", nullable = false)
-    @NotBlank
+    @NotBlank(message = "City name cannot be blank")
     private String name;
 
     @Size(min = 2, max = 25, message = "province must contain from 2 to 25 characters")
     @Column(nullable = false)
-    @NotBlank
+    @NotBlank(message = "City province cannot be blank")
     private String province;
 
     @Size(min = 3, max = 25, message = "region must contain from 3 to 25 characters")
     @Column(nullable = false)
-    @NotBlank
+    @NotBlank(message = "City region cannot be blank")
     private String region;
 
     @Size(min = 4, max = 25, message = "country must contain from 4 to 25 characters")
     @Column(nullable = false)
-    @NotBlank
+    @NotBlank(message = "City country cannot be blank")
     private String country;
 
     private String postal_code;
