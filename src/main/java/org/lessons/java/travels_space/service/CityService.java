@@ -1,5 +1,6 @@
 package org.lessons.java.travels_space.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,10 @@ public class CityService {
     private CityRepository cityRepo;
 
     public List<City> searchByName(String name) {
-        return cityRepo.findByNameContainingIgnoreCase(name);
+        if (name == null || name.trim().length() < 2) {
+            return new ArrayList<>();
+        }
+        return cityRepo.findByNameStartingWithIgnoreCase(name.trim());
     }
 
     public List<City> findAll() {
